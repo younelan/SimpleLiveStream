@@ -1,0 +1,12 @@
+*.mp3
+*.mp4
+*.mov
+*.mpg
+*.mpeg
+*.mkv
+*.png
+*.xcf
+*.log
+*.bak
+assets/*.txt
+.DS_Store
