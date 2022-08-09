@@ -1,30 +1,35 @@
-# *BaFuss* - Bash FFmpeg Uncomplicated Stream Script
+# BaFuss - Bash FFmpeg Uncomplicated Stream Script
 
-This is a simple script to simplify streaming platforms like YouTUBE or Twitch through ffmpeg
+This is a simple script to simplify streaming platforms like **YouTUBE** or **Twitch** through **ffmpeg**
 
-##Steps to make it work:
-- install ffmpeg (apt-get install ffmpeg on ubuntu or brew install ffmpeg on a mac)
-- Get a Youtube Stream Key and/or Twitch Stream Key and add them there
-- edit DEFAULT_VIDEO_SOURCE to reflect the video background file
-- edit your playlist, default music.txt playlist with One music file per line 
-  in the following format: 'file filename.mp3' . Note the word file is required
+## Steps to make it work:
+- install ffmpeg
+    - **Ubuntu:** apt-get install ffmpeg
+    - **Mac** install ffmpeg on a mac
+    - **Windows**: unsupported but you probably can install windows subsystem for linux and **apt-get ffmpeg**
+- Add stream keys:
+    - Get a Youtube Stream Key and put in **config.sh** as **YOUTUBE_KEY**
+    - Get a Twitch Stream Key and put in **config.sh** as **YOUTUBE_KEY**
+- edit **DEFAULT_VIDEO_SOURCE** to reflect the video background file
+- edit your playlist, default **music.txt** playlist with One music file per line 
+  in the following format: '**file filename.mp3**' . Note the word file is required
 - optionally run the screen command if you want to run it remotely
-- optionally add an overlay to your video with add_image.sh
-- run stream.sh with optional parameters below
+- optionally add an overlay to your video with **add_image.sh**
+- run **stream.sh** with optional parameters below
 
 ## Syntax examples:
 ### stream using defaults in config.sh
-    `> ./stream.sh`
+   > ./stream.sh
 ### stream to twitch restarting on a loop if streaming fails
-    ` ./stream.sh -t twitch -l YES`
+   > ./stream.sh -t twitch -l YES
 ### stream playlist "music.txt" with background "title.png"
-    ` ./stream.sh -p music.txt -t title.png`
+   > ./stream.sh -p music.txt -t title.png
 ### stream playlist dance.txt with video video.mp4 as a background
-    ` ./stream.sh -p dance.txt -v video.mp4`
+   > ./stream.sh -p dance.txt -v video.mp4
 ### stream playlist play.txt with overlay overlay title.png and video video.mov in the background
-    `./stream.sh -p play.txt -o title.png -v video.mov >log.txt @&1 -l YES &&`
+   > ./stream.sh -p play.txt -o title.png -v video.mov >log.txt @&1 -l YES &&
 ### pre-create a video with your overlay to use less resources while streaming
-    `./add_image.sh {input.video} {output.video} {overlay.image}`
+   > ./add_image.sh {input.video} {output.video} {overlay.image}
 
 ## optional parameters
 - **-p [playlist]**  provide a file playlist
