@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-source common.sh
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+source $SCRIPT_DIR/common.sh
 
 ACTION=$(echo "$ACTION" | tr a-z A-Z)
 DO_LOOP=$(echo "$DO_LOOP" | tr a-z A-Z)
@@ -19,7 +20,7 @@ case $AUDIO_INPUT in
     exit 2
     ;;
     ("FILE")
-    AUDIO_STR=" -i $SINGLE_AUDIO_FILE" ;;
+    AUDIO_STR=" -i $SINGLE_AUDIO_FILE" 
     ;;
     #("PLAYLIST")
     *)
