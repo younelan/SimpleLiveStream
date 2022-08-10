@@ -1,7 +1,7 @@
 source common.sh
 echo "Dummy script to test parameters without running ffmpeg"
 DO_LOOP=NOT
-while :
+while 0 :
 do
   sleep  3
   echo hello

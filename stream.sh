@@ -4,6 +4,7 @@ source $SCRIPT_DIR/common.sh
 
 ACTION=$(echo "$ACTION" | tr a-z A-Z)
 DO_LOOP=$(echo "$DO_LOOP" | tr a-z A-Z)
+TARGET=$(echo "$TARGET" | tr a-z A-Z)
 
 case $VIDEO_INPUT in
     ("STATIC") 
@@ -34,7 +35,8 @@ OVERLAY_STR=" \
     -filter_complex overlay=0:0:format=yuv444 \
 "
 fi
-
+#STREAM_URL=" -tee \"$YOUTUBE_URL/$YOUTUBE_KEY|$TWITCH_URL/$TWITCH_KEY\""
+#STREAM_URL=""
 while :
 do
 
@@ -51,7 +53,7 @@ ffmpeg \
 	-c:v libx264 -preset $QUAL -r $FPS -g $(($FPS *2)) -b:v $VBR -bufsize 3000k -maxrate $VBR \
 	-c:a $AUDIO_ENCODER -ar 44100 -b:a 128k -pix_fmt yuv420p \
 	-f flv $STREAM_URL \
-  $OVERLAY_STR
+  #$OVERLAY_STR
 
   END=$(date +"%Y/%M/%D %H:%M")
   secs=$SECONDS

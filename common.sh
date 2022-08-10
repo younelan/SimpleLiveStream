@@ -10,25 +10,16 @@ VIDEO_SOURCE=$DEFAULT_VIDEO
 TARGET=$DEFAULT_TARGET
 STREAM_URL=$YOUTUBE_URL/$YOUTUBE_KEY
 
-convertsecs() {
- ((h=${1}/3600))
- ((m=(${1}%3600)/60))
- ((s=${1}%60))
- printf "%02d:%02d:%02d\n" $h $m $s
-}
-log_stream() {
-  secs=$SECONDS
-  duration=$(( secs/60 ))
-  hrs=$(( secs/3600 )); mins=$(( (secs-hrs*3600)/60 )); secs=$(( secs-hrs*3600-mins*60 ))
-  END=$(date +"%Y/%M/%D %H:%M")
-  echo Start: $START - End: $END Duration: $duration - Playlist: $AUDIO_FILES - VIDEO: $VIDEO_SOURCE - Target: $TARGET >>$LOGFILE
-
-  echo Start: $START - End: $END Duration: $hrs:$mins:$secs - Playlist: $AUDIO_FILES - VIDEO: $VIDEO_SOURCE - Target: $TARGET
-}
-
-
-while getopts ":o:s:l:t:v:p:" opt; do
+while getopts ":c:o:s:l:t:v:p:" opt; do
   case $opt in
+    c) #load alternate config
+    CONF_FILE="$OPTARG"
+    while read -r line
+    do 
+      declare  "$line"
+    done <$CONF_FILE
+    # source $CONF_FILE
+    ;;
     s)
     #static image stream
     VIDEO_INPUT=STATIC
@@ -54,6 +45,7 @@ while getopts ":o:s:l:t:v:p:" opt; do
     VIDEO_INPUT=MOVIE
     ;;
   esac
+
   case "$TARGET" in
          ("youtube")
                  STREAM_URL=$YOUTUBE_URL/$YOUTUBE_KEY
@@ -61,8 +53,33 @@ while getopts ":o:s:l:t:v:p:" opt; do
          ("twitch")
                  STREAM_URL=$TWITCH_URL/$TWITCH_KEY
                  ;;
+         ("all")
+                 STREAM_URL="-flags +global_header -f tee  \
+                           [f=flv:onfail=ignore]$YOUTUBE_URL/$YOUTUBE_KEY|[f=flv:onfail=ignore]$TWITCH_URL/$TWITCH_KEY" 
+
   esac
 done
+
+
+
+convertsecs() {
+ ((h=${1}/3600))
+ ((m=(${1}%3600)/60))
+ ((s=${1}%60))
+ printf "%02d:%02d:%02d\n" $h $m $s
+}
+log_stream() {
+  secs=$SECONDS
+  duration=$(( secs/60 ))
+  hrs=$(( secs/3600 )); mins=$(( (secs-hrs*3600)/60 )); secs=$(( secs-hrs*3600-mins*60 ))
+  END=$(date +"%Y/%M/%D %H:%M")
+  echo Start: $START - End: $END Duration: $duration - Playlist: $AUDIO_FILES - VIDEO: $VIDEO_SOURCE - Target: $TARGET >>$LOGFILE
+
+  echo Start: $START - End: $END Duration: $hrs:$mins:$secs - Playlist: $AUDIO_FILES - VIDEO: $VIDEO_SOURCE - Target: $TARGET
+}
+
+
+
 manpage() {
            echo "Stream Scripts"
           echo "-l [YES|NO]    optional argument to loop. NO will break on failure, other values will loop"

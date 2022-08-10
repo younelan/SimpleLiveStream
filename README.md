@@ -1,4 +1,4 @@
-*BaFuss* - Bash FFmpeg Uncomplicated Stream Script
+*Simple Live Stream* - FFmpeg Uncomplicated Stream Script
 ------------------------------------------------
 
 This is a simple script to simplify streaming platforms like YouTUBE or Twitch through ffmpeg
@@ -34,6 +34,7 @@ optional parameters
 - -i [img.file]  provide a image for the background, preferably transparent png
 - -o [image]     provide an image to overlay on video
 - -d [dir]       provide a dir to play all audio files in a directory
+- -c [config]    provide an alternate config to support multiple configs
 
 main files:
 - *config.sh* - variables to customize the script

@@ -8,6 +8,6 @@
 *.xcf
 *.log
 *.bak
-config.sh
-assets/*.txt
+conf/*.conf
+assets/*
 .DS_Store
