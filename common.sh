@@ -1,15 +1,6 @@
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 source $SCRIPT_DIR/config.sh
 
-VIDEO_IMAGE=$DEFAULT_WATERMARK
-VIDEO_SOURCE=$DEFAULT_VIDEO
-FULLVIDEO_SOURCE=$DEFAULT_VIDEO_SOURCE
-SINGLE_AUDIO_FILE=$DEFAULT_SINGLE_AUDIO_SOURCE
-START=$(date +"%Y/%M/%D %H:%M")
-VIDEO_SOURCE=$DEFAULT_VIDEO
-TARGET=$DEFAULT_TARGET
-STREAM_URL=$YOUTUBE_URL/$YOUTUBE_KEY
-
 while getopts ":c:o:s:l:t:v:p:" opt; do
   case $opt in
     c) #load alternate config
@@ -56,11 +47,19 @@ while getopts ":c:o:s:l:t:v:p:" opt; do
          ("all")
                  STREAM_URL="-flags +global_header -f tee  \
                            [f=flv:onfail=ignore]$YOUTUBE_URL/$YOUTUBE_KEY|[f=flv:onfail=ignore]$TWITCH_URL/$TWITCH_KEY" 
+                  ;;
 
   esac
 done
 
-
+VIDEO_IMAGE=$DEFAULT_WATERMARK
+VIDEO_SOURCE=$DEFAULT_VIDEO
+FULLVIDEO_SOURCE=$DEFAULT_VIDEO_SOURCE
+SINGLE_AUDIO_FILE=$DEFAULT_SINGLE_AUDIO_SOURCE
+START=$(date +"%Y/%M/%D %H:%M")
+VIDEO_SOURCE=$DEFAULT_VIDEO
+TARGET=$DEFAULT_TARGET
+STREAM_URL=$YOUTUBE_URL/$YOUTUBE_KEY
 
 convertsecs() {
  ((h=${1}/3600))
