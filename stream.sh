@@ -50,6 +50,7 @@ ffmpeg \
 	$AUDIO_STR \
 	-map 0:v:0 -map 1:a:0 \
 	-map_metadata:g 1:g \
+        -attempt_recovery 1 -max_recovery_attempts 5 -drop_pkts_on_overflow 1 \
 	-c:v libx264 -preset $QUAL -r $FPS -g $(($FPS *2)) -b:v $VBR -bufsize 3000k -maxrate $VBR \
 	-c:a $AUDIO_ENCODER -ar 44100 -b:a 128k -pix_fmt yuv420p \
 	-f flv $STREAM_URL \
