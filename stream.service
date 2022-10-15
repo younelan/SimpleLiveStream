@@ -1,0 +1,15 @@
+[Unit]
+Description=Simple Live Stream
+After=multi-user.target sound.target network-online.target
+
+[Service]
+WorkingDirectory=/stream
+User=ubuntu
+ExecStart=/stream/stream.sh -c /stream/conf/stream.conf
+KillMode=control-group
+Restart=on-failure
+TimeoutSec=1
+
+[Install]
+WantedBy=multi-user.target
+Alias=streaming.service
