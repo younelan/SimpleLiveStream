@@ -1,5 +1,10 @@
 *Simple Live Stream* - FFmpeg Uncomplicated Stream Script
 
+Simple live stream is currently being rewritten in python, this branch does not compile.
+
+Please use master branch for now if you want to run a radio
+
+
 This is a simple script to simplify streaming platforms like **YouTUBE** or **Twitch** through **ffmpeg**
 
 ## Steps to make it work:
